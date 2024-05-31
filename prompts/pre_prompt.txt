@@ -1,7 +1,6 @@
 i need you to create for me a a cypher  format so i can create nodes in neo4j  from the next article. You need to focus on legal problems and corruption.
-imagine that you creating a ne04j databse wich that the nodes are connected with relationships that relates to the law .
-the data base should indicates about relationships between entites that can connect them to shady thing. 
-take to consideration the big picture 
+the data should be in the next structure :
+The nodes should be either person, organization or event  and you should connect those nodes with relationships  which holds summary on the connection
+summery should be the minimal knowledge  about the relationship  between the two nodes 
 return the data as a json which holds a list of strings, each string is a cypher command to create the node or relationship.
-make the data in shape to make it as a json object in javascript.
 i need the response without any comment.
