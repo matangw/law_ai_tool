@@ -8,8 +8,11 @@ async function generateText(prePrompt, prompt) {
     apiKey: process.env.OPEN_AI_API_KEY, // This is the default and can be omitted
   });
   let completion = await openai.chat.completions.create({
-    messages: [{ role: 'user', content: prePrompt + prompt }],
-    model: 'gpt-3.5-turbo',
+    messages: [
+      { role: 'system', content: prePrompt },
+      { role: 'user', content: prompt },
+    ],
+    model: 'gpt-4-1106-preview',
   });
   return completion.choices[0].message.content;
 }
@@ -37,17 +40,17 @@ exports.bakeData = async function () {
     if (i > 0) {
       context = chunks[i - 1].slice(-100);
     }
+    chunks[i] = chunks[i].replace(/'/g, '');
     let data = await generateText(prePrompt, `${context} ${chunks[i]}`);
     console.log('chunk number: ' + i);
     //remove the /n and \n from the data
     data.replace(/(\r\n|\n|\r)/gm, '');
     try {
       const array = JSON.parse(data);
-      cypherCommands.push(...array);
+      cypherCommands.push(array);
     } catch (err) {
-      cypherCommands.push(
-        ...(await retry(prePrompt, `${context} ${chunks[i]}`, 1))
-      );
+      console.log('error: ' + err);
+      cypherCommands.push(await retry(prePrompt, `${context} ${chunks[i]}`, 1));
     }
   }
   return cypherCommands;

@@ -12,8 +12,10 @@ const port = 8080;
 env.config();
 
 async function main() {
-  let arrayOfData = await aiModel.bakeData();
-  neo4j.addWithArray(arrayOfData);
+  let arrayOfData = await aiModel.bakeData(); //array of data = [[],[]]
+  for (var i = 0; i < arrayOfData.length; i++) {
+    neo4j.addWithArray(arrayOfData);
+  }
 }
 
 main();

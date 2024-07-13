@@ -15,7 +15,7 @@ console.log(username, password);
 
 exports.addWithArray = async function addWithArray(array) {
   for (let i = 0; i < array.length; i++) {
-    await addToDatabase(array[i]);
+    await executeMultipleCommands(array[i]);
   }
 };
 
@@ -29,4 +29,21 @@ async function addToDatabase(command) {
   }
 }
 
-addToDatabase('CREATE (n:Person {name: "Alice"}) RETURN n');
+async function executeMultipleCommands(commands) {
+  const session = driver.session();
+  const tx = session.beginTransaction();
+
+  try {
+    for (let command of commands) {
+      await tx.run(command);
+    }
+    await tx.commit();
+    console.log(commands);
+    console.log('All commands executed successfully');
+  } catch (error) {
+    await tx.rollback();
+    console.error('Transaction failed:', error);
+  } finally {
+    await session.close();
+  }
+}

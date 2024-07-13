@@ -1,6 +1,37 @@
-i need you to create for me a a cypher  format so i can create nodes in neo4j  from the next article. You need to focus on legal problems and corruption.
-the data should be in the next structure :
-The nodes should be either person, organization or event  and you should connect those nodes with relationships  which holds summary on the connection
-summery should be the minimal knowledge  about the relationship  between the two nodes 
-return the data as a json which holds a list of strings, each string is a cypher command to create the node or relationship.
-i need the response without any comment.
+You are a cypher expert i need you to create for me a cypher json
+format so i can create nodes in neo4j from the next article.
+You need to focus on legal problems and corruption.
+each node must have at least name and description.
+The nodes should be only with the following types:
+person, 
+organization
+event
+you should connect those nodes with relationships  which holds summary on the connection
+for exmaple , this is how the data should be returned so i can then json parse it,return the data in this stracture: 
+[
+"CREATE (modi:Person {name:'Narendra Modi', role:'Prime Minister of India', tenure:'2014-present', emphasis:'Anti-Corruption'})",
+"CREATE (digitalIndia:Event {description:'Digital India initiative aims to minimize human intervention enhance transparency and improve efficiency in governance'})",
+"CREATE (jamTrinity:Event {description:'JAM Trinity - Jan Dhan Aadhar Mobile - facilitates Direct Benefit Transfer (DBT) eliminating fraud'})",
+"CREATE (preventionOfCorruptionAct1988:Organization {summary:'Amendment to the Prevention of Corruption Act 1988 strengthened anti-corruption measures'})",
+"CREATE (blackMoneyAct:Organization {summary:'The Black Money (Undisclosed Foreign Income and Assets) and Imposition of Tax Act 2015 targets illicit wealth'})",
+"CREATE (benamiPropertyAct:Organization {summary:'Benami Property Act empowers government to combat corruption by targeting illegally held properties'})",
+"CREATE (fugitiveEconomicOffendersAct:Organization {summary:'Fugitive Economic Offenders Act aims at confiscating assets of economic offenders who flee the country'})",
+"CREATE (cpgrams:Organization {summary:'Centralized Public Grievance Redress and Monitoring System (CPGRAMS) allows citizens to lodge grievances'})",
+"CREATE (gem:Event {description:'Government e-marketplace (GeM) ensures transparent public procurement via e-bidding'})",
+"CREATE (pmSvanidhi:Event {description:'PM Street Vendor’s Atmanirbhar Nidhi (PM SVANidhi) aids street vendors enhancing informal employment'})",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (digitalIndia:Event {description:'Digital India initiative aims to minimize human intervention enhance transparency and improve efficiency in governance'}) CREATE (modi)-[:LAUNCHED]->(digitalIndia)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (jamTrinity:Event {description:'JAM Trinity - Jan Dhan Aadhar Mobile - facilitates Direct Benefit Transfer (DBT) eliminating fraud'}) CREATE (modi)-[:ENDORSED]->(jamTrinity)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (preventionOfCorruptionAct1988:Organization {summary:'Amendment to the Prevention of Corruption Act 1988 strengthened anti-corruption measures'}) CREATE (modi)-[:STRENGTHENED]->(preventionOfCorruptionAct1988)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (blackMoneyAct:Organization {summary:'The Black Money (Undisclosed Foreign Income and Assets) and Imposition of Tax Act 2015 targets illicit wealth'}) CREATE (modi)-[:ENACTED]->(blackMoneyAct)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (benamiPropertyAct:Organization {summary:'Benami Property Act empowers government to combat corruption by targeting illegally held properties'}) CREATE (modi)-[:ENACTED]->(benamiPropertyAct)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (fugitiveEconomicOffendersAct:Organization {summary:'Fugitive Economic Offenders Act aims at confiscating assets of economic offenders who flee the country'}) CREATE (modi)-[:ADVOCATED]->(fugitiveEconomicOffendersAct)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (cpgrams:Organization {summary:'Centralized Public Grievance Redress and Monitoring System (CPGRAMS) allows citizens to lodge grievances'}) CREATE (modi)-[:IMPROVED]->(cpgrams)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (gem:Event {description:'Government e-marketplace (GeM) ensures transparent public procurement via e-bidding'}) CREATE (modi)-[:INTRODUCED]->(gem)",
+"MATCH (modi:Person {name:'Narendra Modi'}) MATCH (pmSvanidhi:Event {description:'PM Street Vendor’s Atmanirbhar Nidhi (PM SVANidhi) aids street vendors enhancing informal employment'}) CREATE (modi)-[:SUPPORTED]->(pmSvanidhi)"
+]
+IMPORTANT: when you are creating relationship make sure that you only use nodes that you created, so the neo4j can procces the data.(use the reffrences that you used on the nodes)
+remove any apostrophes from the data. each one of the 's remove and use only s.
+return the data as a string and NOT AS A CODE BLOCK JUST AS STRING.
+return the data without any comments in a single line. the data has to be parseable json , so if you notice symbols or unneeded qoutes remove them.
+
+
